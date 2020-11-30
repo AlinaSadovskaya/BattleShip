@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">lab3_game</string>
+    <string name="player1_name">Player 1</string>
+    <string name="player2_name">Player 2</string>
+    <string name="zero_counter">0</string>
+    <string name="two_dots">:</string>
+    <string name="welcome">Welcome to the Battleship!</string>
+    <string name="enter_name">Enter your name.</string>
+    <string name="enter_password">Enter your password.</string>
+    <string name="enter_email">Enter your email.</string>
+    <string name="start">Get started!</string>
+    <string name="join_game">Join game</string>
+    <string name="start_game">Start game</string>
+    <string name="log_out">Log out</string>
+    <string name="log_in">Log in</string>
+    <string name="stats">My statistics</string>
+    <string name="hi_message">Hi there,</string>
+    <string name="username">Username</string>
+    <string name="title">Battleship</string>
+</resources>
