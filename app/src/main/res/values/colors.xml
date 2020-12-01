@@ -6,4 +6,7 @@
     <color name="colorPrimaryDarkest">#586dc7</color>
     <color name="colorAccent">#74cef4</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="attacked_red">#b7173a</color>
+    <color name="missed_greyish">#c1b9ce</color>
+    <color name="ship_color">#ce7dc1</color>
 </resources>
