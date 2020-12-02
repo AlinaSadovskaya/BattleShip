@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
-        android:icon="@drawable/kitty"
+        android:icon="@drawable/ariel2"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/kitty"
+        android:roundIcon="@drawable/ariel2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Activities.GameActivity" />

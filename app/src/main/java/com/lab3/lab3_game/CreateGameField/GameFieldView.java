@@ -133,9 +133,7 @@ public class GameFieldView extends View {
                 else if (gameField.getCell(i , j) == GamePartition.HURT)
                 {
                     canvas.drawRect(i*cellWidth, j * cellHeight, (i+1) * cellWidth, (j+1) * cellHeight, RedPaint);
-                    Drawable d = getResources().getDrawable(R.drawable.hit_fire, null);
-                    d.setBounds(i*cellWidth, j * cellHeight, (i+1) * cellWidth, (j+1) * cellHeight);
-                    d.draw(canvas);
+
                 }
             }
         }

@@ -94,12 +94,12 @@ public class GameActivity extends AppCompatActivity {
         myTurnView.setVisibility(View.GONE);
         waitForMyTurnView.setVisibility(View.GONE);
 
-        player_1_name = findViewById(R.id.player1_name);
+      //  player_1_name = findViewById(R.id.player1_name);
         player_1_name_field = findViewById(R.id.player_1_field_name);
-        player_1_scoreView = findViewById(R.id.score_player1);
-        player_2_name = findViewById(R.id.player2_name);
+      //  player_1_scoreView = findViewById(R.id.score_player1);
+     //   player_2_name = findViewById(R.id.player2_name);
         player_2_name_field = findViewById(R.id.player_2_field_name);
-        player_2_scoreView = findViewById(R.id.score_player2);
+    //    player_2_scoreView = findViewById(R.id.score_player2);
 
         player_1_field = findViewById(R.id.player1_field);
         player_2_field = findViewById(R.id.player2_field);
@@ -454,7 +454,7 @@ public class GameActivity extends AppCompatActivity {
         Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = Objects.requireNonNull(inflater).inflate(R.layout.end_of_the_game_layout, null);
+  /*      View customView = Objects.requireNonNull(inflater).inflate(R.layout.end_of_the_game_layout, null);
         endOfTheGameWindow = new PopupWindow(
                 customView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -470,13 +470,13 @@ public class GameActivity extends AppCompatActivity {
                 endOfTheGameWindow.showAtLocation(findViewById(R.id.game_holder), Gravity.CENTER,0,0);
             }
         });
-        TextView statusView = customView.findViewById(R.id.win_status);
-        statusView.setText(mes);
-        ImageView kittyView = customView.findViewById(R.id.imageViewEND_OF_THE_GAME);
-        if (didWin)
-            kittyView.setImageResource(R.drawable.kitty_win);
-        else
-            kittyView.setImageResource(R.drawable.kitty_lost);
+ //       TextView statusView = customView.findViewById(R.id.win_status);
+ //       statusView.setText(mes);
+ //       ImageView kittyView = customView.findViewById(R.id.imageViewEND_OF_THE_GAME);
+//        if (didWin)
+//            kittyView.setImageResource(R.drawable.win);
+//        else
+//            kittyView.setImageResource(R.drawable.loser);
         Button okButton = customView.findViewById(R.id.ok_end_of_the_game);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -485,7 +485,7 @@ public class GameActivity extends AppCompatActivity {
                 endOfTheGameWindow.dismiss();
                 onBackPressed();
             }
-        });
+        });*/
     }
 
     private void saveStats()

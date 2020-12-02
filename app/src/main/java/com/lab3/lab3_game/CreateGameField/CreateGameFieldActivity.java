@@ -130,7 +130,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getGameId()
     {
-        Context mContext = getApplicationContext();
+   /*    Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         View customView = Objects.requireNonNull(inflater).inflate(R.layout.game_id_layout, null);
@@ -174,7 +174,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Id copied to Clipboard",
                         Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -183,7 +183,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = Objects.requireNonNull(inflater).inflate(R.layout.game_joining_id_layout, null);
+       /* View customView = Objects.requireNonNull(inflater).inflate(R.layout.game_joining_id_layout, null);
         idPopupWindow = new PopupWindow(
                 customView,
                 LayoutParams.MATCH_PARENT,
@@ -207,7 +207,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 connect(false);
                 idPopupWindow.dismiss();
             }
-        });
+        });*/
     }
 
     private void goToGame(Boolean start)
@@ -288,7 +288,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
         ImageView catImageView = new ImageView(this);
-        catImageView.setImageResource(R.drawable.kitty_wow);
+       // catImageView.setImageResource(R.drawable.error);
         toastContainer.addView(catImageView, 0);
         toast.show();
     }
@@ -301,7 +301,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
         ImageView catImageView = new ImageView(this);
-        catImageView.setImageResource(R.drawable.kitty_wow);
+       // catImageView.setImageResource(R.drawable.error);
         toastContainer.addView(catImageView, 0);
         toast.show();
     }
