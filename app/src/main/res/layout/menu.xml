@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="@color/colorPrimaryLight"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -11,101 +11,132 @@
         android:id="@+id/title_game"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
         android:fontFamily="serif-monospace"
         android:text="@string/title"
         android:textColor="@color/colorPrimaryDarkest"
         android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/menu_hi_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:fontFamily="serif-monospace"
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="@string/hi_message"
         android:textColor="@color/colorPrimaryDarkest"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_holder" />
 
     <TextView
         android:id="@+id/menu_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/menu_hi_message"
-        android:layout_centerHorizontal="true"
         android:fontFamily="serif-monospace"
         android:gravity="center"
         android:includeFontPadding="false"
         android:text="@string/username"
         android:textColor="@color/colorPrimaryDarkest"
-        android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_hi_message" />
 
+    <RelativeLayout
+        android:id="@+id/image_holder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_layout_draw"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_game">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="182dp"
-        android:layout_height="297dp"
-        android:layout_below="@+id/menu_username"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ariel" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/app_name"
+            app:srcCompat="@drawable/kitty" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/menu_stats"
         style="@style/MainButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/menu_join_game"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="serif-monospace"
         android:text="@string/stats"
-        android:textStyle="bold" />
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_join_game"
+        app:layout_constraintWidth_percent=".60" />
 
     <Button
         android:id="@+id/menu_log_out"
         style="@style/MainButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/menu_stats"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="serif-monospace"
         android:text="@string/log_out"
-        android:textStyle="bold" />
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_stats"
+        app:layout_constraintWidth_percent=".60" />
 
     <Button
         android:id="@+id/menu_start_game"
         style="@style/MainButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title_game"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="serif-monospace"
         android:text="@string/start_game"
-        android:textStyle="bold" />
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_username"
+        app:layout_constraintWidth_percent=".60" />
 
     <Button
         android:id="@+id/menu_join_game"
         style="@style/MainButtonStyle"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/menu_start_game"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="serif-monospace"
         android:text="@string/join_game"
-        android:textStyle="bold" />
-</RelativeLayout>
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menu_start_game"
+        app:layout_constraintWidth_percent=".60" />
+</androidx.constraintlayout.widget.ConstraintLayout>

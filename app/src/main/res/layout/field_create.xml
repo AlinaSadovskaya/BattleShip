@@ -51,7 +51,7 @@
         app:srcCompat="@drawable/info_letter"
         android:layout_alignParentRight="true" />
 
-    <com.lab3.lab3_game.FieldCreate.FieldView
+    <com.lab3.lab3_game.CreateGameField.GameFieldView
         android:id="@+id/player_field"
         android:layout_width="380dp"
         android:layout_height="380dp"
