@@ -42,7 +42,7 @@ import java.util.UUID;
 
 public class CreateGameFieldActivity extends AppCompatActivity {
 
-    private GameFieldView gameFieldView;
+    private GameFieldView fieldView;
     private PopupWindow mPopupWindow;
     private PopupWindow idPopupWindow;
     private ProgressBar mProgressBar;
@@ -66,16 +66,15 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        gameFieldView = findViewById(R.id.player_field);
+        fieldView = findViewById(R.id.player_field);
         if (savedInstanceState == null)
-            gameFieldView.createField();
+            fieldView.createField();
         else {
-            GameField gameField = (GameField) savedInstanceState.getSerializable("field");
-            gameFieldView.setField(gameField, CurrentGameFieldMode.CREATION);
+            GameField field = (GameField) savedInstanceState.getSerializable("field");
+            fieldView.setField(field, CurrentGameFieldMode.CREATION);
         }
         FloatingActionButton fab = findViewById(R.id.floatingActionButtonInfo2);
         fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
                 showHint();
@@ -83,10 +82,9 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         });
         Button goToGameButton = findViewById(R.id.get_started_field_created);
         goToGameButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                if (!gameFieldView.finalCheck())
+                if (!fieldView.finalCheck())
                     showError();
                 else {
                     if (startingGame)
@@ -98,7 +96,6 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void showHint()
     {
         Context mContext = getApplicationContext();
@@ -111,7 +108,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 LayoutParams.MATCH_PARENT,
                 true
         );
-       // mPopupWindow.setElevation(5.0f);
+        mPopupWindow.setElevation(5.0f);
         findViewById(R.id.create_field_layout).post(new Runnable() {
             @Override
             public void run() {
@@ -127,20 +124,19 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void getGameId()
     {
-   /*    Context mContext = getApplicationContext();
+        Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = Objects.requireNonNull(inflater).inflate(R.layout.game_id_layout, null);
+        View customView = Objects.requireNonNull(inflater).inflate(R.layout.personal_game, null);
         idPopupWindow = new PopupWindow(
                 customView,
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT,
                 true
         );
-       // idPopupWindow.setElevation(5.0f);
+        idPopupWindow.setElevation(5.0f);
         findViewById(R.id.create_field_layout).post(new Runnable() {
             @Override
             public void run() {
@@ -174,23 +170,22 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Id copied to Clipboard",
                         Toast.LENGTH_LONG).show();
             }
-        });*/
+        });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void enterGameId()
     {
         Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-       /* View customView = Objects.requireNonNull(inflater).inflate(R.layout.game_joining_id_layout, null);
+        View customView = Objects.requireNonNull(inflater).inflate(R.layout.join_game, null);
         idPopupWindow = new PopupWindow(
                 customView,
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.MATCH_PARENT,
                 true
         );
-        //idPopupWindow.setElevation(5.0f);
+        idPopupWindow.setElevation(5.0f);
         findViewById(R.id.create_field_layout).post(new Runnable() {
             @Override
             public void run() {
@@ -207,7 +202,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 connect(false);
                 idPopupWindow.dismiss();
             }
-        });*/
+        });
     }
 
     private void goToGame(Boolean start)
@@ -231,7 +226,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (!dataSnapshot.exists()) {
                         Gson gson = new Gson();
-                        String jsonGridCreated = gson.toJson(gameFieldView.getGameField());
+                        String jsonGridCreated = gson.toJson(fieldView.getGameField());
                         String jsonGridCreated2 = gson.toJson(new GameField());
                         game.removeEventListener(this);
                         game.setValue(new GameStatus(currentUser.getDisplayName(), "", jsonGridCreated, jsonGridCreated2));
@@ -255,7 +250,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
                         Gson gson = new Gson();
-                        String jsonGridCreated = gson.toJson(gameFieldView.getGameField());
+                        String jsonGridCreated = gson.toJson(fieldView.getGameField());
                         game.removeEventListener(this);
                         game.child("player_2").setValue(currentUser.getDisplayName());
                         game.child("player_2_field").setValue(jsonGridCreated);
@@ -277,7 +272,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("field", gameFieldView.getGameField());
+        outState.putSerializable("field", fieldView.getGameField());
     }
 
     private void showError()
@@ -288,7 +283,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
         ImageView catImageView = new ImageView(this);
-       // catImageView.setImageResource(R.drawable.error);
+        catImageView.setImageResource(R.drawable.ariel_happy);
         toastContainer.addView(catImageView, 0);
         toast.show();
     }
@@ -301,7 +296,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
         ImageView catImageView = new ImageView(this);
-       // catImageView.setImageResource(R.drawable.error);
+        catImageView.setImageResource(R.drawable.ariel_happy);
         toastContainer.addView(catImageView, 0);
         toast.show();
     }

@@ -1,7 +1,10 @@
 package com.lab3.lab3_game.Activities;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Gravity;
@@ -14,24 +17,21 @@ import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.lab3.lab3_game.CreateGameField.CurrentGameFieldMode;
-import com.lab3.lab3_game.CreateGameField.GameFieldView;
-import com.lab3.lab3_game.Structures.GameField;
 import com.lab3.lab3_game.Structures.MoveResult;
-import com.lab3.lab3_game.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
+
+import com.lab3.lab3_game.CreateGameField.GameFieldView;
+import com.lab3.lab3_game.Structures.GameField;
+import com.lab3.lab3_game.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -94,12 +94,12 @@ public class GameActivity extends AppCompatActivity {
         myTurnView.setVisibility(View.GONE);
         waitForMyTurnView.setVisibility(View.GONE);
 
-      //  player_1_name = findViewById(R.id.player1_name);
+        player_1_name = findViewById(R.id.player1_name);
         player_1_name_field = findViewById(R.id.player_1_field_name);
-      //  player_1_scoreView = findViewById(R.id.score_player1);
-     //   player_2_name = findViewById(R.id.player2_name);
+        player_1_scoreView = findViewById(R.id.score_player1);
+        player_2_name = findViewById(R.id.player2_name);
         player_2_name_field = findViewById(R.id.player_2_field_name);
-    //    player_2_scoreView = findViewById(R.id.score_player2);
+        player_2_scoreView = findViewById(R.id.score_player2);
 
         player_1_field = findViewById(R.id.player1_field);
         player_2_field = findViewById(R.id.player2_field);
@@ -118,7 +118,6 @@ public class GameActivity extends AppCompatActivity {
         player_2 = game.child("player_2");
 
         player_2.addValueEventListener(new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!Objects.requireNonNull(dataSnapshot.getValue(String.class)).equals("")) {
@@ -139,14 +138,13 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-       final FloatingActionButton showHintButton = findViewById(R.id.floatingActionButtonInfo);
-       showHintButton.setOnClickListener(new View.OnClickListener() {
-           @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-           @Override
-           public void onClick(View view) {
-               showHint();
-           }
-       });
+        final FloatingActionButton showHintButton = findViewById(R.id.floatingActionButtonInfo);
+        showHintButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showHint();
+            }
+        });
 
     }
 
@@ -190,7 +188,6 @@ public class GameActivity extends AppCompatActivity {
     private void trackCurrentMove()
     {
         moveChangesListener = new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (!secondPlayerJoined)
@@ -210,7 +207,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                     else {
                         currentMoveMessage(false);
-                        player_2_field.setFieldMode(CurrentGameFieldMode.PLAYER1);
+                        player_2_field.setFieldMode(CurrentGameFieldMode.READONLY);
                     }
                 }
                 else {
@@ -259,7 +256,6 @@ public class GameActivity extends AppCompatActivity {
     private void initFirstPlayerField()
     {
         field_1_listener = new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue(String.class) == null)
@@ -413,7 +409,14 @@ public class GameActivity extends AppCompatActivity {
             mes = "Your move!";
         else
             mes = "Second player's move!";
-
+        /*Toast toast = Toast.makeText(this,
+                mes, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        LinearLayout toastContainer = (LinearLayout) toast.getView();
+        ImageView catImageView = new ImageView(this);
+        catImageView.setImageResource(R.drawable.kitty);
+        toastContainer.addView(catImageView, 0);
+        toast.show();*/
         Snackbar snackbar = Snackbar.make(findViewById(R.id.game_holder), mes, BaseTransientBottomBar.LENGTH_SHORT);
         snackbar.show();
         if (your)
@@ -442,7 +445,6 @@ public class GameActivity extends AppCompatActivity {
         snackbar.show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void gameEnded(boolean didWin)
     {
         String mes;
@@ -454,29 +456,27 @@ public class GameActivity extends AppCompatActivity {
         Context mContext = getApplicationContext();
         // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-  /*      View customView = Objects.requireNonNull(inflater).inflate(R.layout.end_of_the_game_layout, null);
+        View customView = Objects.requireNonNull(inflater).inflate(R.layout.end_page, null);
         endOfTheGameWindow = new PopupWindow(
                 customView,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 true
         );
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            endOfTheGameWindow.setElevation(5.0f);
-        }
+        endOfTheGameWindow.setElevation(5.0f);
         findViewById(R.id.game_holder).post(new Runnable() {
             @Override
             public void run() {
                 endOfTheGameWindow.showAtLocation(findViewById(R.id.game_holder), Gravity.CENTER,0,0);
             }
         });
- //       TextView statusView = customView.findViewById(R.id.win_status);
- //       statusView.setText(mes);
- //       ImageView kittyView = customView.findViewById(R.id.imageViewEND_OF_THE_GAME);
-//        if (didWin)
-//            kittyView.setImageResource(R.drawable.win);
-//        else
-//            kittyView.setImageResource(R.drawable.loser);
+        TextView statusView = customView.findViewById(R.id.win_status);
+        statusView.setText(mes);
+        ImageView kittyView = customView.findViewById(R.id.imageViewEND_OF_THE_GAME);
+        if (didWin)
+            kittyView.setImageResource(R.drawable.fish_small);
+        else
+            kittyView.setImageResource(R.drawable.fish_bad);
         Button okButton = customView.findViewById(R.id.ok_end_of_the_game);
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -485,7 +485,7 @@ public class GameActivity extends AppCompatActivity {
                 endOfTheGameWindow.dismiss();
                 onBackPressed();
             }
-        });*/
+        });
     }
 
     private void saveStats()
@@ -497,7 +497,6 @@ public class GameActivity extends AppCompatActivity {
         stats.child("score_2").setValue(score2);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void showHint()
     {
         Context mContext = getApplicationContext();
@@ -510,7 +509,7 @@ public class GameActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 true
         );
-      //  mPopupWindow.setElevation(5.0f);
+        mPopupWindow.setElevation(5.0f);
         findViewById(R.id.game_holder).post(new Runnable() {
             @Override
             public void run() {
@@ -568,7 +567,6 @@ public class GameActivity extends AppCompatActivity {
     private void trackScore2Update()
     {
         score_2_changedListener = new ValueEventListener() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue(int.class) == null) {
