@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Activities.GameActivity" />
+        <activity android:name=".Activities.GameStatisticActivity" />
         <activity android:name=".CreateGameField.CreateGameFieldActivity" />
         <activity android:name=".Activities.MenuActivity" />
         <activity android:name=".Activities.GoogleLoginActivity">

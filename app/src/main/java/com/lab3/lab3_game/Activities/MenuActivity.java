@@ -62,6 +62,13 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         Button statsButton = findViewById(R.id.menu_stats);
+
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToStats();
+            }
+        });
     }
 
     private void signOut() {
@@ -94,6 +101,12 @@ public class MenuActivity extends AppCompatActivity {
     {
         Intent intent = new Intent(this, CreateGameFieldActivity.class);
         intent.putExtra("startingGame", false);
+        this.startActivity(intent);
+    }
+
+    private void goToStats()
+    {
+        Intent intent = new Intent(this, GameStatisticActivity.class);
         this.startActivity(intent);
     }
 
