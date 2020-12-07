@@ -31,4 +31,16 @@
     <string name="no_stats">No games yet!</string>
     <string name="my_turn">my turn</string>
     <string name="wait">waiting</string>
+    <string name="Select_image">Please Select image</string>
+    <string name="Image_uploaded">Image uploaded</string>
+    <string name="Uploading_Image">Uploading Image</string>
+    <string name="Changed_successfully">Changed successfully</string>
+    <string name="name_already_exists">This name already exists</string>
+    <string name="Empty">Field is empty!</string>
+    <string name="UserProfile">Account</string>
+    <string name="gravatar">Gravatar</string>
+    <string name="firestore">FireStore</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="browse_image">Browse image to upload</string>
+    <string name="update_name">Update Name</string>
 </resources>

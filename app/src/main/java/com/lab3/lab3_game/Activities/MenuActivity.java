@@ -9,6 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lab3.lab3_game.CreateGameField.CreateGameFieldActivity;
 import com.lab3.lab3_game.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -18,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.lab3.lab3_game.UserAccount.UserPageActivity;
 
 import java.util.Objects;
 
@@ -25,6 +31,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private GoogleSignInClient googleSignInClient;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +44,29 @@ public class MenuActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        database = FirebaseDatabase.getInstance();
         TextView nameView = findViewById(R.id.menu_username);
-        nameView.setText(Objects.requireNonNull(currentUser).getDisplayName());
+        final String[] UserName = {""};
+        DatabaseReference myRef = database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    if (Objects.equals(child.getKey(), "userName")) {
+                        UserName[0] = Objects.requireNonNull(child.getValue()).toString();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+        if (UserName[0] == "") {
+            nameView.setText(Objects.requireNonNull(currentUser).getDisplayName());
+        }
+        else
+        {
+            nameView.setText(UserName[0]);
+        }
         Button signOutButton = findViewById(R.id.menu_log_out);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,11 +89,17 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         Button statsButton = findViewById(R.id.menu_stats);
-
         statsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToStats();
+            }
+        });
+        Button userButton = findViewById(R.id.menu_user_profile);
+        userButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToAccount();
             }
         });
     }
@@ -107,6 +140,12 @@ public class MenuActivity extends AppCompatActivity {
     private void goToStats()
     {
         Intent intent = new Intent(this, GameStatisticActivity.class);
+        this.startActivity(intent);
+    }
+
+    private void goToAccount()
+    {
+        Intent intent = new Intent(this, UserPageActivity.class);
         this.startActivity(intent);
     }
 

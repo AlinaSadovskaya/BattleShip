@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".UserAccount.UserPageActivity"
+    android:background="@color/colorPrimaryLight">
+
+    <EditText
+        android:id="@+id/NameUser"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/rectangular_field"
+        android:inputType="text"
+        android:paddingVertical="15dp"
+        android:paddingLeft="60dp"
+        android:textColor="#000000" />
+
+    <Button
+        android:id="@+id/ApplyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/RoundButtonStyle"
+        android:text="@string/update_name" />
+
+    <RadioGroup
+        android:id="@+id/RadioButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/GravatarButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gravatar"
+            android:onClick="onRadioButtonClicked"
+            android:textColor="@color/colorPrimaryDarkest"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/FireBaseButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/firestore"
+            android:textColor="@color/colorPrimaryDarkest"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/ChooseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/browse_image"
+        style="@style/RoundButtonStyle"
+        android:onClick="btnBrowse_Click"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"/>
+
+
+    <Button
+        android:id="@+id/UpdateImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_image"
+        style="@style/RoundButtonStyle"
+        android:onClick="btnUpload_Click"/>
+
+</LinearLayout>
