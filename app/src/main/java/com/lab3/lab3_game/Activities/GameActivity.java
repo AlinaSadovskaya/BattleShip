@@ -409,14 +409,7 @@ public class GameActivity extends AppCompatActivity {
             mes = "Your move!";
         else
             mes = "Second player's move!";
-        /*Toast toast = Toast.makeText(this,
-                mes, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        LinearLayout toastContainer = (LinearLayout) toast.getView();
-        ImageView catImageView = new ImageView(this);
-        catImageView.setImageResource(R.drawable.kitty);
-        toastContainer.addView(catImageView, 0);
-        toast.show();*/
+
         Snackbar snackbar = Snackbar.make(findViewById(R.id.game_holder), mes, BaseTransientBottomBar.LENGTH_SHORT);
         snackbar.show();
         if (your)
@@ -433,14 +426,6 @@ public class GameActivity extends AppCompatActivity {
     private void currentMoveStatusMessage()
     {
         String mes = "You can hit one more time. :p";
-        /*Toast toast = Toast.makeText(this,
-                mes, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        LinearLayout toastContainer = (LinearLayout) toast.getView();
-        ImageView catImageView = new ImageView(this);
-        catImageView.setImageResource(R.drawable.kitty);
-        toastContainer.addView(catImageView, 0);
-        toast.show();*/
         Snackbar snackbar = Snackbar.make(findViewById(R.id.game_holder), mes, BaseTransientBottomBar.LENGTH_SHORT);
         snackbar.show();
     }
@@ -454,7 +439,6 @@ public class GameActivity extends AppCompatActivity {
             mes = "Unfortunately, you lost...";
         saveStats();
         Context mContext = getApplicationContext();
-        // popup window for entering rss
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         View customView = Objects.requireNonNull(inflater).inflate(R.layout.end_page, null);
         endOfTheGameWindow = new PopupWindow(

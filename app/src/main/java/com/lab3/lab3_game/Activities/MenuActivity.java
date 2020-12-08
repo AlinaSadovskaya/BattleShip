@@ -45,28 +45,6 @@ public class MenuActivity extends AppCompatActivity {
                 .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
         database = FirebaseDatabase.getInstance();
-        TextView nameView = findViewById(R.id.menu_username);
-        final String[] UserName = {""};
-        DatabaseReference myRef = database.getReference("Users").child(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child : snapshot.getChildren()) {
-                    if (Objects.equals(child.getKey(), "userName")) {
-                        UserName[0] = Objects.requireNonNull(child.getValue()).toString();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-        if (UserName[0] == "") {
-            nameView.setText(Objects.requireNonNull(currentUser).getDisplayName());
-        }
-        else
-        {
-            nameView.setText(UserName[0]);
-        }
         Button signOutButton = findViewById(R.id.menu_log_out);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override

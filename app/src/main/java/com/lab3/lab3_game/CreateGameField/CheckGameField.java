@@ -8,16 +8,15 @@ public class CheckGameField {
 
     private final GameField gameField;
 
-    // final values for comparing and validating
-    private final static int battleshipsCount = 4;
-    private final static int cruisersCount = 3;
-    private final static int destroyersCount = 2;
-    private final static int torpedosCount = 1;
+    private final static int one_sell = 4;
+    private final static int two_sells = 3;
+    private final static int three_sells = 2;
+    private final static int for_sells = 1;
 
-    private int currentBattleshipsCount = 0;
-    private int currentCruisersCount = 0;
-    private int currentDestroyersCount = 0;
-    private int currentTorpedosCount = 0;
+    private int currentOneSellCount = 0;
+    private int currentTwoSellsCount = 0;
+    private int currentThreeSellsCount = 0;
+    private int currentForSellsCount = 0;
     private boolean [][] correctCells;
 
     public CheckGameField(GameField gameField)
@@ -28,8 +27,8 @@ public class CheckGameField {
     public boolean finalCheck(){
         if (checkField())
         {
-            return battleshipsCount == currentBattleshipsCount && cruisersCount == currentCruisersCount &&
-                    torpedosCount == currentTorpedosCount && destroyersCount == currentDestroyersCount;
+            return one_sell == currentOneSellCount && two_sells == currentTwoSellsCount &&
+                    for_sells == currentForSellsCount && three_sells == currentThreeSellsCount;
         }
         else return false;
     }
@@ -37,84 +36,16 @@ public class CheckGameField {
     public boolean checkField()
     {
         correctCells = new boolean[10][10];
-        currentBattleshipsCount = 0;
-        currentCruisersCount = 0;
-        currentDestroyersCount = 0;
-        currentTorpedosCount = 0;
+        currentOneSellCount = 0;
+        currentTwoSellsCount = 0;
+        currentThreeSellsCount = 0;
+        currentForSellsCount = 0;
 
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++)
                 if (!checkCell(i, j))
                     return false;
         return true;
-    }
-
-    private boolean checkCell(int i, int j)
-    {
-        if (!checkNeighbors(i, j)) {
-            return false;
-        } else
-        {
-            correctCells[i][j] = true;
-            return true;
-        }
-
-    }
-
-    private boolean checkNearbyCells(int i, int j, boolean checkLength)
-    {
-        int nearbyShipCellsHorizontal = 0, nearbyShipCellsVertical = 0;
-
-        if (i > 0) {
-
-            if (gameField.getCell(i - 1, j) == GamePartition.SHIP)
-                nearbyShipCellsHorizontal++;
-            if (j + 1 < 10)
-                if (gameField.getCell(i - 1, j + 1) == GamePartition.SHIP)
-                    return false;
-            if (j > 0)
-                if (gameField.getCell(i - 1, j - 1) == GamePartition.SHIP)
-                    return false;
-        }
-
-        if (j + 1 < 10)
-            if (gameField.getCell(i, j+1) == GamePartition.SHIP)
-                nearbyShipCellsVertical++;
-        if (j - 1 >= 0)
-            if (gameField.getCell(i, j - 1) == GamePartition.SHIP)
-                nearbyShipCellsVertical++;
-        if (i + 1 < 10)
-        {
-            if (gameField.getCell(i + 1, j) == GamePartition.SHIP)
-                nearbyShipCellsHorizontal++;
-            if (j + 1 < 10)
-                if (gameField.getCell(i + 1, j + 1) == GamePartition.SHIP)
-                    return false;
-            if (j - 1 >= 0)
-                if (gameField.getCell(i + 1, j - 1) == GamePartition.SHIP)
-                    return false;
-        }
-
-        if (checkLength) {
-            if (nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal == 0) {
-                currentBattleshipsCount++;
-                return true;
-            } else if (nearbyShipCellsVertical <= 2 && nearbyShipCellsHorizontal == 0 || nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal <= 2)
-                return checkLength(i, j);
-            else
-                return false;
-        }
-        else
-            return (nearbyShipCellsVertical <= 2 && nearbyShipCellsHorizontal == 0 || nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal <= 2);
-    }
-
-    private boolean checkNeighbors(int i, int j)
-    {
-        if (correctCells[i][j])
-            return true;
-        if (gameField.getCell(i, j) == GamePartition.EMPTY)
-            return true;
-        return checkNearbyCells(i, j, true);
     }
 
     private boolean checkLength(int i, int j)
@@ -186,12 +117,81 @@ public class CheckGameField {
         if (shipLength > 4)
             return false;
         else if (shipLength == 2)
-            currentCruisersCount++;
+            currentTwoSellsCount++;
         else if (shipLength == 3)
-            currentDestroyersCount++;
+            currentThreeSellsCount++;
         else if (shipLength == 4)
-            currentTorpedosCount++;
+            currentForSellsCount++;
         return true;
     }
+
+    private boolean checkCell(int i, int j)
+    {
+        if (!checkShip(i, j)) {
+            return false;
+        } else
+        {
+            correctCells[i][j] = true;
+            return true;
+        }
+
+    }
+
+    private boolean checkNearbyCells(int i, int j, boolean checkLength)
+    {
+        int nearbyShipCellsHorizontal = 0, nearbyShipCellsVertical = 0;
+
+        if (i > 0) {
+
+            if (gameField.getCell(i - 1, j) == GamePartition.SHIP)
+                nearbyShipCellsHorizontal++;
+            if (j + 1 < 10)
+                if (gameField.getCell(i - 1, j + 1) == GamePartition.SHIP)
+                    return false;
+            if (j > 0)
+                if (gameField.getCell(i - 1, j - 1) == GamePartition.SHIP)
+                    return false;
+        }
+
+        if (j + 1 < 10)
+            if (gameField.getCell(i, j+1) == GamePartition.SHIP)
+                nearbyShipCellsVertical++;
+        if (j - 1 >= 0)
+            if (gameField.getCell(i, j - 1) == GamePartition.SHIP)
+                nearbyShipCellsVertical++;
+        if (i + 1 < 10)
+        {
+            if (gameField.getCell(i + 1, j) == GamePartition.SHIP)
+                nearbyShipCellsHorizontal++;
+            if (j + 1 < 10)
+                if (gameField.getCell(i + 1, j + 1) == GamePartition.SHIP)
+                    return false;
+            if (j - 1 >= 0)
+                if (gameField.getCell(i + 1, j - 1) == GamePartition.SHIP)
+                    return false;
+        }
+
+        if (checkLength) {
+            if (nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal == 0) {
+                currentOneSellCount++;
+                return true;
+            } else if (nearbyShipCellsVertical <= 2 && nearbyShipCellsHorizontal == 0 || nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal <= 2)
+                return checkLength(i, j);
+            else
+                return false;
+        }
+        else
+            return (nearbyShipCellsVertical <= 2 && nearbyShipCellsHorizontal == 0 || nearbyShipCellsVertical == 0 && nearbyShipCellsHorizontal <= 2);
+    }
+
+    private boolean checkShip(int i, int j)
+    {
+        if (correctCells[i][j])
+            return true;
+        if (gameField.getCell(i, j) == GamePartition.EMPTY)
+            return true;
+        return checkNearbyCells(i, j, true);
+    }
+
 
 }

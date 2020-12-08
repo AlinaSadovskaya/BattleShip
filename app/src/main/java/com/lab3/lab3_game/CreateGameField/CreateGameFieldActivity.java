@@ -4,7 +4,6 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lab3.lab3_game.Activities.GameActivity;
@@ -85,7 +83,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!fieldView.finalCheck())
-                    showError();
+                    ShipsPlacesError();
                 else {
                     if (startingGame)
                         getGameId();
@@ -233,7 +231,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                         goToGame(true);
                     }
                     else {
-                        showIdIncorrectMessage();
+                        ErrorToJoinGame();
                     }
                 }
 
@@ -242,7 +240,6 @@ public class CreateGameFieldActivity extends AppCompatActivity {
 
                 }
             };
-            game.addValueEventListener(checkListener);
         }
         else {
             checkListener = new ValueEventListener() {
@@ -256,7 +253,7 @@ public class CreateGameFieldActivity extends AppCompatActivity {
                         game.child("player_2_field").setValue(jsonGridCreated);
                         goToGame(false);
                     }
-                    else showIdIncorrectMessage();
+                    else ErrorToJoinGame();
                 }
 
                 @Override
@@ -264,8 +261,8 @@ public class CreateGameFieldActivity extends AppCompatActivity {
 
                 }
             };
-            game.addValueEventListener(checkListener);
         }
+        game.addValueEventListener(checkListener);
 
     }
 
@@ -275,10 +272,12 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         outState.putSerializable("field", fieldView.getGameField());
     }
 
-    private void showError()
+
+
+    private void ErrorToJoinGame()
     {
         Toast toast = Toast.makeText(this,
-                "Incorrect placement for ships.",
+                "Incorrect id.",
                 Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
@@ -288,10 +287,10 @@ public class CreateGameFieldActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private void showIdIncorrectMessage()
+    private void ShipsPlacesError()
     {
         Toast toast = Toast.makeText(this,
-                "Incorrect id.",
+                "Incorrect placement for ships.",
                 Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         LinearLayout toastContainer = (LinearLayout) toast.getView();
